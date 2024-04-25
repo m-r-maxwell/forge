@@ -1,0 +1,22 @@
+version: '3'
+
+tasks:
+  build-mac:
+    desc: Build the app
+    cmds:
+      - go build -o forge main.go
+
+  build-linux:
+    desc: Build the app for linux
+    cmds:
+      - GOOS=linux GOARCH=amd64 go build -o bin/forge main.go
+
+  build-windows:
+    desc: Build the app for windows
+    cmds:
+      - GOOS=windows GOARCH=amd64 go build -o forge.exe main.go
+
+  bin-mac:
+    desc: Adds to user bin to use anywhere on the computer in terminal
+    cmds:
+      - sudo mv forge /usr/local/bin
