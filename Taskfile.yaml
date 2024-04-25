@@ -20,3 +20,13 @@ tasks:
     desc: Adds to user bin to use anywhere on the computer in terminal
     cmds:
       - sudo mv forge /usr/local/bin
+
+  bin-linux:
+    desc: Adds to user bin to use anywhere on the computer in terminal
+    cmds:
+      - sudo mv bin/forge /usr/local/bin
+
+  bin-windows:
+    desc: Adds to Windows/System32 to use anywhere on the computer in terminal
+    cmds:
+      - Move-Item .\forge.exe C:\Windows\System32\

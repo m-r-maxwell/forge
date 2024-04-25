@@ -29,5 +29,16 @@ Ideally I would love to add gRPC as a template option, but that seems a bit tric
 
 <br><br>
 
+# Other things
+There is pwsh.txt and zsh.txt for auto completion for those shells.   
+
+There is also an included Taskfile with the ability to build for different OSes.
+- build-mac
+- bin-mac: adds to /usr/local/bin
+- build-linux
+- bin-linux: adds to /usr/local/bin
+- build-windows
+- bin-windows: adds to C:\Windows\System32\
+
 # Lastly
 If you have any feedback or ways to improve this this I am happy to connect and discuss.
