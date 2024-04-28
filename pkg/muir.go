@@ -8,28 +8,43 @@ import (
 	"os/exec"
 )
 
-func Blank() {
+func Blank(arg string) {
 	str := str.BLANK
-	fmt.Println("What would you like to name your project?")
-	fmt.Println("This will be the name of the folder and the Go module.")
-	name := helpers.GetInput()
-	err := os.Mkdir(name, 0755)
-	helpers.CheckErrors(err)
-	err = os.Chdir(name)
-	helpers.CheckErrors(err)
+
+	if arg == "" {
+		fmt.Println("What would you like to name your project?")
+		fmt.Println("This will be the name of the folder and the Go module.")
+		name := helpers.GetInput()
+		err := os.Mkdir(name, 0755)
+		helpers.CheckErrors(err)
+		helpers.CheckErrors(err)
+		err = os.Chdir(name)
+		helpers.CheckErrors(err)
+		fmt.Println("Running Go mod init...")
+		cmd := exec.Command("go", "mod", "init", name)
+		err = cmd.Run()
+		helpers.CheckErrors(err)
+	} else {
+		err := os.Mkdir(arg, 0755)
+		helpers.CheckErrors(err)
+		err = os.Chdir(arg)
+		helpers.CheckErrors(err)
+		fmt.Println("Running Go mod init...")
+		cmd := exec.Command("go", "mod", "init", arg)
+		err = cmd.Run()
+		helpers.CheckErrors(err)
+	}
+	fmt.Println("Go mod init successful!")
+
 	file, err := os.Create("main.go")
 	helpers.CheckErrors(err)
 	defer file.Close()
 	_, err = file.WriteString(str)
 	helpers.CheckErrors(err)
 	fmt.Println("Project created successfully!")
-	fmt.Println("Running Go mod init...")
-	cmd := exec.Command("go", "mod", "init", name)
-	err = cmd.Run()
-	helpers.CheckErrors(err)
-	fmt.Println("Go mod init successful!")
+
 	fmt.Println("Running Go mod tidy...")
-	cmd = exec.Command("go", "mod", "tidy")
+	cmd := exec.Command("go", "mod", "tidy")
 	err = cmd.Run()
 	helpers.CheckErrors(err)
 	fmt.Println("Go mod tidy successful!")
