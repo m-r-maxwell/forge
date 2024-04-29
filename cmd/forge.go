@@ -2,12 +2,15 @@ package forge
 
 import (
 	"fmt"
+	muir "forge/pkg"
 	"os"
 
 	"github.com/spf13/cobra"
 )
 
-var version = "0.0.1"
+var version = "0.0.2"
+
+// var git bool
 
 var rootCmd = &cobra.Command{
 	Use:     "forge",
@@ -26,7 +29,17 @@ var rootCmd = &cobra.Command{
 	},
 }
 
+// func init() {
+//rootCmd.PersistentFlags().BoolVarP(&git, "git", "g", false, "Initialize a git repository")
+// blankCmd.PersistentFlags().BoolVarP(&git, "git", "g", false, "Initialize a git repository")
+//restCmd.Flags().BoolP("rest", "r", false, "Generate a RESTful API project")
+
+//}
+
 func Execute() {
+	if git, _ := rootCmd.Flags().GetBool("git"); git {
+		muir.Git()
+	}
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println("Error: ", err)
 		os.Exit(1)

@@ -7,8 +7,7 @@ import (
 )
 
 var gitCmd = &cobra.Command{
-	Use: "git",
-	//Aliases: []string{"g", "--g"},
+	Use:   "git",
 	Short: "Generate a git project",
 	Run: func(cmd *cobra.Command, args []string) {
 		muir.Git()
