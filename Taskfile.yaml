@@ -30,3 +30,13 @@ tasks:
     desc: Adds to Windows/System32 to use anywhere on the computer in terminal
     cmds:
       - Move-Item .\forge.exe C:\Windows\System32\
+
+  zsh-ac:
+    desc: Creates zsh auto completion file
+    cmds:
+      - forge completion zsh > zsh.txt
+  
+  pwsh-ac:
+    desc: Creates powershell auto completion file
+    cmds:
+      - forge completion powershell > pwsh.txt

@@ -15,6 +15,5 @@ var gitCmd = &cobra.Command{
 }
 
 func init() {
-	gitCmd.Flags().BoolP("g", "g", false, "Create a git repository (optional)")
 	rootCmd.AddCommand(gitCmd)
 }

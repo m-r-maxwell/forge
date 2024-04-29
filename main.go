@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	forge "forge/cmd"
 )
 
@@ -14,6 +13,5 @@ func main() {
 	// |  |     |  '--'  | |  |\  \----.|  |__| | |  |____
 	// |__|      \______/  | _| '._____| \______| |_______|
 	// `)
-	fmt.Println("Starting to forge....")
 	forge.Execute()
 }

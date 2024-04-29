@@ -15,13 +15,55 @@ I honestly just wanted to explore cobra more thoroughly, and this can be useful 
 <br><br>
 
 # Available Commands
-- blank: Generic empty go project.
-- cli: Cobra focused CLI project
-- git: just another way to init a git repo (maybe look in to chaining commands? or adding a flag to set git with -g)
-- help: The inbuilt help command
-- models: Create a models folder and file
-- rest: Create a rest API with net/http (assuming go 1.22) with middleware, helpers, models, etc.
-- service: Create a new service structure for apis
+### blank: 
+Generic empty go project.
+```shell 
+forge blank [name]
+# blank aliases: b, --b, new 
+# name is optional, if not provided user is prompted for one
+```
+### cli:
+Cobra focused CLI project
+``` shell
+forge cli [name]
+# cli aliases: c --c
+# name is optional, if not provided user in prompted for one
+```
+### git: 
+just another way to init a git repo
+``` shell
+forge git
+```
+ ``` go 
+ // TODO:
+ // maybe look in to chaining commands? or adding a flag to set git with -g)
+ ```
+### help: 
+The inbuilt help command
+``` shell
+forge help
+```
+### models: 
+Create a models folder and file
+```shell
+forge models
+# alias m
+```
+### restful API: 
+Create a rest API with net/http (assuming go 1.22) with middleware, helpers, models, etc.
+```shell
+forge rest [name]
+# alias r
+# name is optional, if not provided user is prompted for one
+```
+
+### service: 
+Create a new service structure for apis
+```shell
+forge service [name]
+# alias s
+# name is required
+```
 <br><br>
 
 # Future stuff
@@ -39,6 +81,8 @@ There is also an included Taskfile with the ability to build for different OSes.
 - bin-linux: adds to /usr/local/bin
 - build-windows
 - bin-windows: adds to C:\Windows\System32\
+- zsh-ac: creates zsh auto complete instructions
+- pwsh-ac: creates pwsh auto complete instructions
 
 # Lastly
 If you have any feedback or ways to improve this this I am happy to connect and discuss.

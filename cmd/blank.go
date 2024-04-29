@@ -1,6 +1,7 @@
 package forge
 
 import (
+	"fmt"
 	muir "forge/pkg"
 
 	"github.com/spf13/cobra"
@@ -14,6 +15,7 @@ var blankCmd = &cobra.Command{
 	Args:    cobra.MaximumNArgs(1),
 	Aliases: []string{"b", "--b", "new"},
 	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println("Starting to forge....")
 		if len(args) > 0 {
 			muir.Blank(args[0])
 		} else {
