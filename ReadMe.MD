@@ -1,5 +1,10 @@
- # Forge
- 
+ <div style="text-align: center">
+  <h1>Forge</h1>
+ </div>
+
+ <div style="text-align: center">
+<img src="forge.png" height="250" width="250">
+ </div>
 
 This project is inspired by the likes of t3 create-react-app, ng generate, etc but with a focus on go.
 
