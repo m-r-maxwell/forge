@@ -7,10 +7,16 @@ import (
 )
 
 var restCmd = &cobra.Command{
-	Use:   "rest",
-	Short: "Generate a RESTful API project",
+	Use:   "rest [name]",
+	Short: "Generate a RESTful API project with optional [name]",
+	Args:  cobra.MaximumNArgs(1),
+	Long:  `Generate a RESTful API project with the provided name or prompt for one.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		muir.Rest()
+		if len(args) > 0 {
+			muir.Rest(args[0])
+		} else {
+			muir.Rest("")
+		}
 	},
 }
 

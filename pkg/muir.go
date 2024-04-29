@@ -35,7 +35,6 @@ func Blank(arg string) {
 		helpers.CheckErrors(err)
 	}
 	fmt.Println("Go mod init successful!")
-
 	file, err := os.Create("main.go")
 	helpers.CheckErrors(err)
 	defer file.Close()
@@ -55,18 +54,35 @@ func Blank(arg string) {
 	fmt.Println("You're good to Go :)")
 }
 
-func Rest() {
+func Rest(arg string) {
 	st := str.WEB
-	fmt.Println("What would you like to name your project?")
-	fmt.Println("This will be the name of the folder and the Go module.")
-	name := helpers.GetInput()
-	err := os.Mkdir(name, 0755)
-	helpers.CheckErrors(err)
-	err = os.Chdir(name)
-	helpers.CheckErrors(err)
+
+	if arg == "" {
+		fmt.Println("What would you like to name your project?")
+		fmt.Println("This will be the name of the folder and the Go module.")
+		name := helpers.GetInput()
+		err := os.Mkdir(name, 0755)
+		helpers.CheckErrors(err)
+		err = os.Chdir(name)
+		helpers.CheckErrors(err)
+
+		fmt.Println("Running Go mod init...")
+		cmd := exec.Command("go", "mod", "init", name)
+		err = cmd.Run()
+		helpers.CheckErrors(err)
+	} else {
+		err := os.Mkdir(arg, 0755)
+		helpers.CheckErrors(err)
+		err = os.Chdir(arg)
+		helpers.CheckErrors(err)
+		fmt.Println("Running Go mod init...")
+		cmd := exec.Command("go", "mod", "init", arg)
+		err = cmd.Run()
+		helpers.CheckErrors(err)
+	}
 
 	fmt.Println("Creating middleware folder...")
-	err = os.Mkdir("middleware", 0755)
+	err := os.Mkdir("middleware", 0755)
 	helpers.CheckErrors(err)
 	os.Chdir("middleware")
 	fmw, err := os.Create("middleware.go")
@@ -105,13 +121,10 @@ func Rest() {
 	helpers.CheckErrors(err)
 
 	fmt.Println("Project created successfully!")
-	fmt.Println("Running Go mod init...")
-	cmd := exec.Command("go", "mod", "init", name)
-	err = cmd.Run()
-	helpers.CheckErrors(err)
+
 	fmt.Println("Go mod init successful!")
 	fmt.Println("Running Go mod tidy...")
-	cmd = exec.Command("go", "mod", "tidy")
+	cmd := exec.Command("go", "mod", "tidy")
 	err = cmd.Run()
 	helpers.CheckErrors(err)
 	fmt.Println("Go mod tidy successful!")
@@ -140,13 +153,11 @@ func Service(arg1 string) {
 	helpers.CheckErrors(err)
 	pf := fmt.Sprintf("package %s", arg1)
 	tf := fmt.Sprintf("type %sService struct {}", arg1)
-	str := pf + "\n" + tf + "\n" + `
-	// Add your service code here
-	// Such as func NewService(...interface{}) *Service
-	//{
-		// return &Service{}
-	//}
-	`
+	str := pf + "\n" + tf + "\n" + "// Add your service code here\n"
+	str += fmt.Sprintf("func %sService(...interface{}) *%sService\n", arg1, arg1)
+	str += "{\n"
+	str += fmt.Sprintf("return &%sService{}\n", arg1)
+	str += "}\n"
 	file, err := os.Create(arg1 + ".service.go")
 	helpers.CheckErrors(err)
 	defer file.Close()
@@ -173,18 +184,36 @@ func Models() {
 	helpers.GoFMT()
 }
 
-func Cli() {
+func Cli(arg string) {
 	st := str.CLI
-	fmt.Println("What would you like to name your project?")
-	fmt.Println("This will be the name of the folder and the Go module.")
-	name := helpers.GetInput()
-	err := os.Mkdir(name, 0755)
-	helpers.CheckErrors(err)
-	err = os.Chdir(name)
-	helpers.CheckErrors(err)
+
+	if arg == "" {
+		fmt.Println("What would you like to name your project?")
+		fmt.Println("This will be the name of the folder and the Go module.")
+		name := helpers.GetInput()
+		err := os.Mkdir(name, 0755)
+		helpers.CheckErrors(err)
+		err = os.Chdir(name)
+		helpers.CheckErrors(err)
+		fmt.Println("Running Go mod init...")
+		cmd := exec.Command("go", "mod", "init", name)
+		err = cmd.Run()
+		helpers.CheckErrors(err)
+		fmt.Println("Go mod init successful!")
+	} else {
+		err := os.Mkdir(arg, 0755)
+		helpers.CheckErrors(err)
+		err = os.Chdir(arg)
+		helpers.CheckErrors(err)
+		fmt.Println("Running Go mod init...")
+		cmd := exec.Command("go", "mod", "init", arg)
+		err = cmd.Run()
+		helpers.CheckErrors(err)
+		fmt.Println("Go mod init successful!")
+	}
 
 	fmt.Println("Creating cmd folder...")
-	err = os.Mkdir("cmd", 0755)
+	err := os.Mkdir("cmd", 0755)
 	helpers.CheckErrors(err)
 	os.Chdir("cmd")
 	fmt.Println("Creating cmd main.go file...")
@@ -206,15 +235,13 @@ func Cli() {
 	helpers.CheckErrors(err)
 
 	fmt.Println("Project created successfully!")
-	fmt.Println("Running Go mod init...")
-	cmd := exec.Command("go", "mod", "init", name)
-	err = cmd.Run()
+
 	helpers.CheckErrors(err)
-	fmt.Println("Go mod init successful!")
+
 	fmt.Println("Installing Cobra...")
 	helpers.GoModCobra()
 	fmt.Println("Running Go mod tidy...")
-	cmd = exec.Command("go", "mod", "tidy")
+	cmd := exec.Command("go", "mod", "tidy")
 	err = cmd.Run()
 	helpers.CheckErrors(err)
 	fmt.Println("Go mod tidy successful!")

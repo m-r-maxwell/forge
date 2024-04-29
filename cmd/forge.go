@@ -15,7 +15,14 @@ var rootCmd = &cobra.Command{
 	Short:   "Forge is a CLI tool for generating Go projects",
 	Long:    `Forge is a CLI tool for generating Go projects of various types. Blank, web, or cli.`,
 	Run: func(cmd *cobra.Command, args []string) {
-
+		fmt.Println(`
+	_______   ______   .______        _______  _______
+	|   ____| /  __  \  |   _  \      /  _____||   ____|
+	|  |__   |  |  |  | |  |_)  |    |  |  __  |  |__
+	|   __|  |  |  |  | |      /     |  | |_ | |   __|
+	|  |     |  '--'  | |  |\  \----.|  |__| | |  |____
+	|__|      \______/  | _| '._____| \______| |_______|
+	`)
 	},
 }
 
