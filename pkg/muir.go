@@ -8,7 +8,7 @@ import (
 	"os/exec"
 )
 
-func Blank(arg string) {
+func Blank(arg string, git bool) {
 	str := str.BLANK
 
 	if arg == "" {
@@ -19,6 +19,9 @@ func Blank(arg string) {
 		helpers.CheckErrors(err)
 		helpers.CheckErrors(err)
 		err = os.Chdir(name)
+		if git {
+			Git()
+		}
 		helpers.CheckErrors(err)
 		fmt.Println("Running Go mod init...")
 		cmd := exec.Command("go", "mod", "init", name)
@@ -29,6 +32,9 @@ func Blank(arg string) {
 		helpers.CheckErrors(err)
 		err = os.Chdir(arg)
 		helpers.CheckErrors(err)
+		if git {
+			Git()
+		}
 		fmt.Println("Running Go mod init...")
 		cmd := exec.Command("go", "mod", "init", arg)
 		err = cmd.Run()
@@ -54,7 +60,7 @@ func Blank(arg string) {
 	fmt.Println("You're good to Go :)")
 }
 
-func Rest(arg string) {
+func Rest(arg string, git bool) {
 	st := str.WEB
 
 	if arg == "" {
@@ -65,6 +71,9 @@ func Rest(arg string) {
 		helpers.CheckErrors(err)
 		err = os.Chdir(name)
 		helpers.CheckErrors(err)
+		if git {
+			Git()
+		}
 
 		fmt.Println("Running Go mod init...")
 		cmd := exec.Command("go", "mod", "init", name)
@@ -75,6 +84,9 @@ func Rest(arg string) {
 		helpers.CheckErrors(err)
 		err = os.Chdir(arg)
 		helpers.CheckErrors(err)
+		if git {
+			Git()
+		}
 		fmt.Println("Running Go mod init...")
 		cmd := exec.Command("go", "mod", "init", arg)
 		err = cmd.Run()
@@ -184,10 +196,10 @@ func Models() {
 	helpers.GoFMT()
 }
 
-func Cli(arg string) {
+func Cli(arg string, git bool) {
 	st := str.CLI
 
-	if arg == "" {
+	if arg != "" {
 		fmt.Println("What would you like to name your project?")
 		fmt.Println("This will be the name of the folder and the Go module.")
 		name := helpers.GetInput()
@@ -195,6 +207,10 @@ func Cli(arg string) {
 		helpers.CheckErrors(err)
 		err = os.Chdir(name)
 		helpers.CheckErrors(err)
+		if git {
+			fmt.Println("Initializing git repository...")
+			Git()
+		}
 		fmt.Println("Running Go mod init...")
 		cmd := exec.Command("go", "mod", "init", name)
 		err = cmd.Run()
@@ -205,6 +221,9 @@ func Cli(arg string) {
 		helpers.CheckErrors(err)
 		err = os.Chdir(arg)
 		helpers.CheckErrors(err)
+		if git {
+			Git()
+		}
 		fmt.Println("Running Go mod init...")
 		cmd := exec.Command("go", "mod", "init", arg)
 		err = cmd.Run()

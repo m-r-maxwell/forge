@@ -16,9 +16,9 @@ var cliCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Starting to forge....")
 		if len(args) > 0 {
-			muir.Cli(args[0])
+			muir.Cli(args[0], git)
 		} else {
-			muir.Cli("")
+			muir.Cli("", git)
 		}
 	},
 }

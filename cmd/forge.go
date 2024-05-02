@@ -2,7 +2,6 @@ package forge
 
 import (
 	"fmt"
-	muir "forge/pkg"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -10,7 +9,7 @@ import (
 
 var version = "0.0.2"
 
-// var git bool
+var git bool
 
 var rootCmd = &cobra.Command{
 	Use:     "forge",
@@ -29,17 +28,16 @@ var rootCmd = &cobra.Command{
 	},
 }
 
-// func init() {
-//rootCmd.PersistentFlags().BoolVarP(&git, "git", "g", false, "Initialize a git repository")
-// blankCmd.PersistentFlags().BoolVarP(&git, "git", "g", false, "Initialize a git repository")
-//restCmd.Flags().BoolP("rest", "r", false, "Generate a RESTful API project")
-
-//}
+func init() {
+	rootCmd.Flags().BoolP("version", "v", false, "Print the version number of forge")
+	rootCmd.Flags().BoolP("help", "h", false, "Print the help menu")
+	//rootCmd.PersistentFlags().BoolVarP(&git, "git", "g", false, "Initialize a git repository")
+	blankCmd.Flags().BoolVarP(&git, "git", "g", false, "Initialize a git repository")
+	cliCmd.Flags().BoolVarP(&git, "git", "g", false, "Initialize a git repository")
+	restCmd.Flags().BoolVarP(&git, "git", "g", false, "Initialize a git repository")
+}
 
 func Execute() {
-	if git, _ := rootCmd.Flags().GetBool("git"); git {
-		muir.Git()
-	}
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println("Error: ", err)
 		os.Exit(1)

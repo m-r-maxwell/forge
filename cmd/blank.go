@@ -17,14 +17,13 @@ var blankCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Starting to forge....")
 		if len(args) > 0 {
-			muir.Blank(args[0])
+			muir.Blank(args[0], git)
 		} else {
-			muir.Blank("")
+			muir.Blank("", git)
 		}
 	},
 }
 
 func init() {
-	//rootCmd.PersistentFlags().BoolVarP(&useBlank, "blank", "b", false, "Generate a blank Go project")
 	rootCmd.AddCommand(blankCmd)
 }

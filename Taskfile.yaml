@@ -35,7 +35,7 @@ tasks:
     desc: Creates zsh auto completion file
     cmds:
       - forge completion zsh > zsh.txt
-  
+      
   pwsh-ac:
     desc: Creates powershell auto completion file
     cmds:

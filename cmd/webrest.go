@@ -16,9 +16,9 @@ var restCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Starting to forge....")
 		if len(args) > 0 {
-			muir.Rest(args[0])
+			muir.Rest(args[0], git)
 		} else {
-			muir.Rest("")
+			muir.Rest("", git)
 		}
 	},
 }
