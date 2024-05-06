@@ -200,6 +200,19 @@ func Cli(arg string, git bool) {
 	st := str.CLI
 
 	if arg != "" {
+		err := os.Mkdir(arg, 0755)
+		helpers.CheckErrors(err)
+		err = os.Chdir(arg)
+		helpers.CheckErrors(err)
+		if git {
+			Git()
+		}
+		fmt.Println("Running Go mod init...")
+		cmd := exec.Command("go", "mod", "init", arg)
+		err = cmd.Run()
+		helpers.CheckErrors(err)
+		fmt.Println("Go mod init successful!")
+	} else {
 		fmt.Println("What would you like to name your project?")
 		fmt.Println("This will be the name of the folder and the Go module.")
 		name := helpers.GetInput()
@@ -216,19 +229,7 @@ func Cli(arg string, git bool) {
 		err = cmd.Run()
 		helpers.CheckErrors(err)
 		fmt.Println("Go mod init successful!")
-	} else {
-		err := os.Mkdir(arg, 0755)
-		helpers.CheckErrors(err)
-		err = os.Chdir(arg)
-		helpers.CheckErrors(err)
-		if git {
-			Git()
-		}
-		fmt.Println("Running Go mod init...")
-		cmd := exec.Command("go", "mod", "init", arg)
-		err = cmd.Run()
-		helpers.CheckErrors(err)
-		fmt.Println("Go mod init successful!")
+
 	}
 
 	fmt.Println("Creating cmd folder...")

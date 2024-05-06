@@ -32,8 +32,3 @@ func GoModCobra() {
 	err := cmd.Run()
 	CheckErrors(err)
 }
-
-func ChangeDirSinceDone(name string) {
-	err := os.Chdir(name)
-	CheckErrors(err)
-}
