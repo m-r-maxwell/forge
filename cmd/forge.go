@@ -32,7 +32,7 @@ var rootCmd = &cobra.Command{
 func init() {
 	rootCmd.Flags().BoolP("version", "v", false, "Print the version number of forge")
 	rootCmd.Flags().BoolP("help", "h", false, "Print the help menu")
-	//rootCmd.PersistentFlags().BoolVarP(&git, "git", "g", false, "Initialize a git repository")
+	rootCmd.PersistentFlags().BoolVarP(&git, "git", "g", false, "Initialize a git repository")
 	blankCmd.Flags().BoolVarP(&git, "git", "g", false, "Initialize a git repository")
 	cliCmd.Flags().BoolVarP(&git, "git", "g", false, "Initialize a git repository")
 	restCmd.Flags().BoolVarP(&git, "git", "g", false, "Initialize a git repository")
