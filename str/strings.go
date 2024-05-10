@@ -1,6 +1,5 @@
 package str
 
-// TODO: Update these to be more accurate for web, grpc, and cli projects
 const BLANK = `package main
 
 import "fmt"

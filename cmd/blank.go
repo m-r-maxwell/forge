@@ -10,16 +10,16 @@ import (
 // var useBlank bool
 var blankCmd = &cobra.Command{
 	Use:     "blank [name]",
-	Short:   "Generate a blank Go project with an optional [name]",
-	Long:    `Generate a blank Go project with the provided name or prompt for one.`,
-	Args:    cobra.MaximumNArgs(1),
-	Aliases: []string{"b", "--b", "new"},
+	Short:   "Generate a blank Go project with [name]",
+	Long:    `Generate a blank Go project with the provided name, the world is your oyster.`,
+	Args:    cobra.ExactArgs(1),
+	Aliases: []string{"b", "new"},
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Starting to forge....")
 		if len(args) > 0 {
 			muir.Blank(args[0], git)
 		} else {
-			muir.Blank("", git)
+			fmt.Println("Please provide a name for your blank project")
 		}
 	},
 }
