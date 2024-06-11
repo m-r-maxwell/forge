@@ -36,13 +36,9 @@ forge cli [name]
 ```
 ### git: 
 just another way to init a git repo
-``` shell
-forge git
+```shell
+forge blank [name] -g
 ```
- ``` go 
- // TODO:
- // maybe look in to chaining commands? or adding a flag to set git with -g)
- ```
 ### help: 
 The inbuilt help command
 ``` shell
@@ -75,9 +71,6 @@ forge service [name]
 Ideally I would love to add gRPC as a template option, but that seems a bit trickier to do at this time and will play around with it.
 
 <br><br>
-
-# Other things
-There is pwsh.txt and zsh.txt for auto completion for those shells.   
 
 There is also an included Taskfile with the ability to build for different OSes.
 - build-mac
