@@ -188,3 +188,21 @@ func Cli(arg string, git bool) {
 	fmt.Println("You're good to Go :)")
 	helpers.GoFMT()
 }
+
+func Python(arg string) {
+	str := str.PY
+
+	err := os.Mkdir(arg, 0755)
+	helpers.CheckErrors(err)
+	err = os.Chdir(arg)
+	helpers.CheckErrors(err)
+	cmd := exec.Command("python3", "-m", "venv", "venv")
+	err = cmd.Run()
+	helpers.CheckErrors(err)
+	file, err := os.Create(arg + ".py")
+	helpers.CheckErrors(err)
+	defer file.Close()
+	_, err = file.WriteString(str)
+	helpers.CheckErrors(err)
+	fmt.Println("Project created successfully!")
+}

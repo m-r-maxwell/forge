@@ -119,3 +119,6 @@ func Execute() {
 	}
 }
 `
+const PY = `
+print("Hello, World!")
+`
