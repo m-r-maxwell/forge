@@ -8,18 +8,25 @@
 
 This project is inspired by the likes of t3 create-react-app, ng generate, etc but with a focus on go.
 
-There are a few different options for Forge.
-- The first is a generic blank project complete with the words of the ancestors of 'Hello, world'.
-- Second is a blank rest api service that generates main.go with net/http, this might be extended in the future for other routing options such as gorilla/mux, echo, or chi, but I have found that the latest version of net/http is good enough
-- Third is the bases of a cli project with cobra installed as well.
-- There are some helper utilities as well, to create a models folder and file, a service folder and file that can be named with `forge service <YourService>`
+## Commands
+- Blank: An empty go project
+- CLI: Blank CLI template
+- Completion: Inbuilt completions for your terminal
+- Help: Is the inbuilt cobra help command
+- Models: This creates a models folder/file to store model information
+- Python: A blank python app.py
+- Rest: A rest microservice template using http/net
+- Service: Service templates 
+
+## Flags
+- `-g --git`: Initialize a git repo
 <br><br>
 
 # That's cool and all but why though?
 I honestly just wanted to explore cobra more thoroughly, and this can be useful for me in the future as I create random Go projects. I know it's not hard to create new projects in go, but maybe this can evolve over time as become more familiar with cobra. I've found the best way to learn something is to put it in action.
 <br><br>
 
-# Available Commands
+## Command Usage
 ### blank: 
 Generic empty go project.
 ```shell 
@@ -38,6 +45,7 @@ forge cli [name]
 just another way to init a git repo
 ```shell
 forge blank [name] -g
+# alias b
 ```
 ### help: 
 The inbuilt help command
@@ -55,7 +63,13 @@ Create a rest API with net/http (assuming go 1.22) with middleware, helpers, mod
 ```shell
 forge rest [name]
 # alias r
-# name is optional, if not provided user is prompted for one
+```
+
+### python script
+Create a python file
+```shell
+forge python [name]
+#alias p
 ```
 
 ### service: 
@@ -63,7 +77,6 @@ Create a new service structure for apis
 ```shell
 forge service [name]
 # alias s
-# name is required
 ```
 <br><br>
 
