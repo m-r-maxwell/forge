@@ -2,7 +2,7 @@ package forge
 
 import (
 	"fmt"
-	muir "forge/pkg"
+	pkg "forge/pkg"
 
 	"github.com/spf13/cobra"
 )
@@ -13,7 +13,7 @@ var modelsCmd = &cobra.Command{
 	Aliases: []string{"m"},
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Starting to forge....")
-		muir.Models()
+		pkg.Models()
 	},
 }
 

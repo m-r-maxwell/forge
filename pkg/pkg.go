@@ -199,7 +199,7 @@ func Python(arg string) {
 	cmd := exec.Command("python3", "-m", "venv", "venv")
 	err = cmd.Run()
 	helpers.CheckErrors(err)
-	file, err := os.Create(arg + ".py")
+	file, err := os.Create("app.py")
 	helpers.CheckErrors(err)
 	defer file.Close()
 	_, err = file.WriteString(str)

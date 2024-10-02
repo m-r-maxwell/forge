@@ -2,7 +2,7 @@ package forge
 
 import (
 	"fmt"
-	muir "forge/pkg"
+	pkg "forge/pkg"
 
 	"github.com/spf13/cobra"
 )
@@ -16,7 +16,7 @@ var cliCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Starting to forge....")
 		if len(args) > 0 {
-			muir.Cli(args[0], git)
+			pkg.Cli(args[0], git)
 		} else {
 			fmt.Println("Please provide a name for your cli project")
 		}

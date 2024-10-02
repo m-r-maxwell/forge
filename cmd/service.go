@@ -2,7 +2,7 @@ package forge
 
 import (
 	"fmt"
-	muir "forge/pkg"
+	pkg "forge/pkg"
 
 	"github.com/spf13/cobra"
 )
@@ -15,7 +15,7 @@ var serviceCmd = &cobra.Command{
 	Args:    cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Starting to forge....")
-		muir.Service(args[0])
+		pkg.Service(args[0])
 	},
 }
 
