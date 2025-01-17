@@ -6,6 +6,7 @@ import (
 	"forge/str"
 	"os"
 	"os/exec"
+	"path/filepath"
 )
 
 func Blank(arg string, git bool) {
@@ -205,4 +206,49 @@ func Python(arg string) {
 	_, err = file.WriteString(str)
 	helpers.CheckErrors(err)
 	fmt.Println("Project created successfully!")
+}
+
+func PrintStructure(path string, prefix string) {
+	fileInfo, err := os.Stat(path)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
+	if !fileInfo.IsDir() {
+		fmt.Println(prefix + "└── " + fileInfo.Name())
+		return
+	}
+
+	base := filepath.Base(path)
+	// Skip hidden directories or specific directories like "venv"
+	if base[0] == '.' || base == "venv" {
+		return
+	}
+
+	// Print the current directory
+	fmt.Println(prefix + base + "/")
+
+	files, err := os.ReadDir(path)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
+	for i, file := range files {
+		newPrefix := prefix
+		if i == len(files)-1 {
+			// Last item uses "└──" and reduces indentation for further depth
+			fmt.Println(newPrefix + "└── " + file.Name())
+			if file.IsDir() {
+				PrintStructure(filepath.Join(path, file.Name()), newPrefix+"    ")
+			}
+		} else {
+			// Intermediate items use "├──" and maintain depth with "│   "
+			fmt.Println(newPrefix + "├── " + file.Name())
+			if file.IsDir() {
+				PrintStructure(filepath.Join(path, file.Name()), newPrefix+"│   ")
+			}
+		}
+	}
 }
