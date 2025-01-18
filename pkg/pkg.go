@@ -216,17 +216,18 @@ func PrintStructure(path string, prefix string) {
 	}
 
 	if !fileInfo.IsDir() {
+		// Print file with "└──" (or other symbols depending on context)
 		fmt.Println(prefix + "└── " + fileInfo.Name())
 		return
 	}
 
 	base := filepath.Base(path)
-	// Skip hidden directories or specific directories like "venv"
-	if base[0] == '.' || base == "venv" {
+	// Skip hidden directories or specific directories like "venv" and "__pycache__"
+	if base[0] == '.' || base == "venv" || base == "__pycache__" {
 		return
 	}
 
-	// Print the current directory
+	// Print the directory name
 	fmt.Println(prefix + base + "/")
 
 	files, err := os.ReadDir(path)
@@ -235,20 +236,20 @@ func PrintStructure(path string, prefix string) {
 		return
 	}
 
+	// Iterate through directory contents
 	for i, file := range files {
+		isLast := i == len(files)-1
 		newPrefix := prefix
-		if i == len(files)-1 {
-			// Last item uses "└──" and reduces indentation for further depth
-			fmt.Println(newPrefix + "└── " + file.Name())
-			if file.IsDir() {
-				PrintStructure(filepath.Join(path, file.Name()), newPrefix+"    ")
-			}
+		if isLast {
+			newPrefix += "    "
 		} else {
-			// Intermediate items use "├──" and maintain depth with "│   "
-			fmt.Println(newPrefix + "├── " + file.Name())
-			if file.IsDir() {
-				PrintStructure(filepath.Join(path, file.Name()), newPrefix+"│   ")
-			}
+			newPrefix += "│   "
+		}
+
+		if file.IsDir() {
+			PrintStructure(filepath.Join(path, file.Name()), newPrefix)
+		} else {
+			fmt.Println(newPrefix + "└── " + file.Name())
 		}
 	}
 }
