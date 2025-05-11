@@ -7,19 +7,16 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// cliCmd represents the command to generate a CLI project
 var cliCmd = &cobra.Command{
 	Use:     "cli [name]",
-	Short:   "Generate a cli project with [name]",
-	Long:    `Generate a cobra cli project with the provided name.`,
+	Short:   "Generate a CLI project with [name]",
+	Long:    `Generate a Cobra CLI project with the provided name.`,
 	Args:    cobra.ExactArgs(1),
 	Aliases: []string{"c"},
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Starting to forge....")
-		if len(args) > 0 {
-			pkg.Cli(args[0], git)
-		} else {
-			fmt.Println("Please provide a name for your cli project")
-		}
+		pkg.Cli(args[0], git)
 	},
 }
 

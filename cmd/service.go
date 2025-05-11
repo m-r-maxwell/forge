@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// serviceCmd represents the command to generate a service
 var serviceCmd = &cobra.Command{
 	Use:     "service [name]",
 	Short:   "Generate a service",

@@ -8,6 +8,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// structureCmd represents the command to generate a project structure
 var structureCmd = &cobra.Command{
 	Use:     "structure [path]",
 	Short:   "Generate a project structure at [path]",

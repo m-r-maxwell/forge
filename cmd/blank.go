@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// var useBlank bool
+// blankCmd represents the command to generate a blank Go project
 var blankCmd = &cobra.Command{
 	Use:     "blank [name]",
 	Short:   "Generate a blank Go project with [name]",
@@ -16,11 +16,7 @@ var blankCmd = &cobra.Command{
 	Aliases: []string{"b", "new"},
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Starting to forge....")
-		if len(args) > 0 {
-			pkg.Blank(args[0], git)
-		} else {
-			fmt.Println("Please provide a name for your blank project")
-		}
+		pkg.Blank(args[0], git)
 	},
 }
 

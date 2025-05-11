@@ -9,108 +9,48 @@ import (
 	"path/filepath"
 )
 
-func Blank(arg string, git bool) {
-	str := str.BLANK
+// Define constants for repeated strings
+const (
+	MainGoFile       = "main.go"
+	ModelsFolder     = "models"
+	HelpersFolder    = "helpers"
+	MiddlewareFolder = "middleware"
+	VenvFolder       = "venv"
+	PycacheFolder    = "__pycache__"
+)
 
-	err := os.Mkdir(arg, 0755)
-	helpers.CheckErrors(err)
-	err = os.Chdir(arg)
-	helpers.CheckErrors(err)
-	if git {
-		Git()
-	}
-	cmd := exec.Command("go", "mod", "init", arg)
-	err = cmd.Run()
-	helpers.CheckErrors(err)
-
-	file, err := os.Create("main.go")
-	helpers.CheckErrors(err)
-	defer file.Close()
-	_, err = file.WriteString(str)
-	helpers.CheckErrors(err)
-	fmt.Println("Project created successfully!")
-	cmd = exec.Command("go", "mod", "tidy")
-	err = cmd.Run()
-	helpers.CheckErrors(err)
-	helpers.GoFMT()
-	helpers.CheckErrors(err)
-	fmt.Println("You're good to Go :)")
+// Helper function to create a directory
+func createDir(path string) error {
+	return os.Mkdir(path, 0755)
 }
 
-func Rest(arg string, git bool) {
-	st := str.WEB
-
-	err := os.Mkdir(arg, 0755)
-	helpers.CheckErrors(err)
-	err = os.Chdir(arg)
-	helpers.CheckErrors(err)
-	if git {
-		Git()
-	}
-	cmd := exec.Command("go", "mod", "init", arg)
-	err = cmd.Run()
-	helpers.CheckErrors(err)
-
-	fmt.Println("Creating middleware folder...")
-	err = os.Mkdir("middleware", 0755)
-	helpers.CheckErrors(err)
-	os.Chdir("middleware")
-	fmw, err := os.Create("middleware.go")
-	helpers.CheckErrors(err)
-	_, err = fmw.WriteString(str.MW)
-	defer fmw.Close()
-	helpers.CheckErrors(err)
-
-	err = os.Chdir("..")
-	helpers.CheckErrors(err)
-	// models
-	fmt.Println("Creating models folder...")
-	err = os.Mkdir("models", 0755)
-	helpers.CheckErrors(err)
-	os.Chdir("models")
-	fm, err := os.Create("models.go")
-	helpers.CheckErrors(err)
-	_, err = fm.WriteString(str.MDL)
-	defer fm.Close()
-	helpers.CheckErrors(err)
-
-	err = os.Chdir("..")
-	helpers.CheckErrors(err)
-	// helpers
-	fmt.Println("Creating helpers folder... delete if not needed")
-	err = os.Mkdir("helpers", 0755)
-	helpers.CheckErrors(err)
-
-	// main file
-	file, err := os.Create("main.go")
-	helpers.CheckErrors(err)
-	defer file.Close()
-	_, err = file.WriteString(st)
-	helpers.CheckErrors(err)
-
-	fmt.Println("Project created successfully!")
-	cmd = exec.Command("go", "mod", "tidy")
-	err = cmd.Run()
-	helpers.CheckErrors(err)
-	cmd = exec.Command("go", "fmt")
-	err = cmd.Run()
-	helpers.CheckErrors(err)
-	fmt.Println("You're good to Go :)")
-	helpers.GoFMT()
+// Helper function to change the current working directory
+func changeDir(path string) error {
+	return os.Chdir(path)
 }
 
-func Git() {
-	fmt.Println("Running Git init...")
-	cmd := exec.Command("git", "init")
-	err := cmd.Run()
-	helpers.CheckErrors(err)
+// Helper function to run a command
+func runCommand(name string, args ...string) error {
+	cmd := exec.Command(name, args...)
+	return cmd.Run()
+}
+
+// Helper function to create a file and write content
+func createFileWithContent(path, content string) error {
+	file, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+	_, err = file.WriteString(content)
+	return err
 }
 
 func Service(arg1 string) {
 	fmt.Println("Creating: ", arg1, " service in the "+arg1+" folder")
-	err := os.Mkdir(arg1, 0755)
+	err := createDir(arg1)
 	helpers.CheckErrors(err)
-	err = os.Chdir(arg1)
+	err = changeDir(arg1)
 	helpers.CheckErrors(err)
 	pf := fmt.Sprintf("package %s", arg1)
 	tf := fmt.Sprintf("type %sService struct {}", arg1)
@@ -119,10 +59,7 @@ func Service(arg1 string) {
 	str += "{\n"
 	str += fmt.Sprintf("return &%sService{}\n", arg1)
 	str += "}\n"
-	file, err := os.Create(arg1 + ".service.go")
-	helpers.CheckErrors(err)
-	defer file.Close()
-	_, err = file.WriteString(str)
+	err = createFileWithContent(arg1+".service.go", str)
 	helpers.CheckErrors(err)
 	helpers.GoFMT()
 	fmt.Println("Service created successfully!")
@@ -131,13 +68,10 @@ func Service(arg1 string) {
 
 func Models() {
 	fmt.Println("Creating models folder...")
-	err := os.Mkdir("models", 0755)
+	err := createDir(ModelsFolder)
 	helpers.CheckErrors(err)
-	os.Chdir("models")
-	file, err := os.Create("models.go")
-	helpers.CheckErrors(err)
-	defer file.Close()
-	_, err = file.WriteString(str.MDL)
+	changeDir(ModelsFolder)
+	err = createFileWithContent("models.go", str.MDL)
 	helpers.CheckErrors(err)
 	fmt.Println("You're good to Go :)")
 	helpers.GoFMT()
@@ -146,45 +80,36 @@ func Models() {
 func Cli(arg string, git bool) {
 	st := str.CLI
 
-	err := os.Mkdir(arg, 0755)
+	err := createDir(arg)
 	helpers.CheckErrors(err)
-	err = os.Chdir(arg)
+	err = changeDir(arg)
 	helpers.CheckErrors(err)
 	if git {
 		Git()
 	}
-	cmd := exec.Command("go", "mod", "init", arg)
-	err = cmd.Run()
+	err = runCommand("go", "mod", "init", arg)
 	helpers.CheckErrors(err)
 
 	fmt.Println("Creating cmd folder...")
-	err = os.Mkdir("cmd", 0755)
+	err = createDir("cmd")
 	helpers.CheckErrors(err)
-	os.Chdir("cmd")
-	file, err := os.Create("main.go")
-	helpers.CheckErrors(err)
-	defer file.Close()
-	_, err = file.WriteString(str.CLIROOT)
+	changeDir("cmd")
+	err = createFileWithContent(MainGoFile, str.CLIROOT)
 	helpers.CheckErrors(err)
 
-	os.Chdir("..")
+	changeDir("..")
 	fmt.Println("Creating pkg folder...")
-	os.Mkdir("pkg", 0755)
+	createDir("pkg")
 
-	file, err = os.Create("main.go")
-	helpers.CheckErrors(err)
-	defer file.Close()
-	_, err = file.WriteString(st)
+	err = createFileWithContent(MainGoFile, st)
 	helpers.CheckErrors(err)
 
 	fmt.Println("Project created successfully!")
 	fmt.Println("Installing Cobra...")
 	helpers.GoModCobra()
-	cmd = exec.Command("go", "mod", "tidy")
-	err = cmd.Run()
+	err = runCommand("go", "mod", "tidy")
 	helpers.CheckErrors(err)
-	cmd = exec.Command("go", "fmt")
-	err = cmd.Run()
+	err = runCommand("go", "fmt")
 	helpers.CheckErrors(err)
 	fmt.Println("You're good to Go :)")
 	helpers.GoFMT()
@@ -193,21 +118,20 @@ func Cli(arg string, git bool) {
 func Python(arg string) {
 	str := str.PY
 
-	err := os.Mkdir(arg, 0755)
+	err := createDir(arg)
 	helpers.CheckErrors(err)
-	err = os.Chdir(arg)
+	err = changeDir(arg)
 	helpers.CheckErrors(err)
-	cmd := exec.Command("python3", "-m", "venv", "venv")
-	err = cmd.Run()
+	err = runCommand("python3", "-m", "venv", VenvFolder)
 	helpers.CheckErrors(err)
-	file, err := os.Create("app.py")
-	helpers.CheckErrors(err)
-	defer file.Close()
-	_, err = file.WriteString(str)
+	err = createFileWithContent("app.py", str)
 	helpers.CheckErrors(err)
 	fmt.Println("Project created successfully!")
 }
 
+// PrintStructure prints the folder structure of a given path
+// path: the root directory to start printing from
+// prefix: the prefix to use for formatting the output
 func PrintStructure(path string, prefix string) {
 	fileInfo, err := os.Stat(path)
 	if err != nil {
@@ -223,7 +147,7 @@ func PrintStructure(path string, prefix string) {
 
 	base := filepath.Base(path)
 	// Skip hidden directories or specific directories like "venv" and "__pycache__"
-	if base[0] == '.' || base == "venv" || base == "__pycache__" {
+	if base[0] == '.' || base == VenvFolder || base == PycacheFolder {
 		return
 	}
 

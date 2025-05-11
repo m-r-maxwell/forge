@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// modelsCmd represents the command to generate a models folder and file
 var modelsCmd = &cobra.Command{
 	Use:     "models",
 	Short:   "Generate a models folder and file",
