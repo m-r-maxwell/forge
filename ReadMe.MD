@@ -1,4 +1,4 @@
- <div style="text-align: center">
+<div style="text-align: center">
   <h1>Forge</h1>
  </div>
 
@@ -17,9 +17,14 @@ This project is inspired by the likes of t3 create-react-app, ng generate, etc b
 - Python: A blank python app.py
 - Rest: A rest microservice template using http/net
 - Service: Service templates 
+- Doc: Generates a generic `README.md` file with project metadata
+- Info: Displays project metadata, such as name, type, and Git initialization status
+- Task: Lists and runs tasks defined in `Taskfile.yaml`
+- Test: Generates boilerplate test files for Go projects
 
 ## Flags
 - `-g --git`: Initialize a git repo
+- `--readme`: Generate a `README.md` file automatically after executing any Forge command
 <br><br>
 
 # That's cool and all but why though?
@@ -78,6 +83,34 @@ Create a new service structure for apis
 forge service [name]
 # alias s
 ```
+
+### doc:
+Generate a `README.md` file for the project.
+```shell
+forge doc
+# Optional flags:
+# --name, -n: Specify a custom project name
+# --type, -t: Specify the project type (e.g., Go, Python)
+```
+
+### info:
+Display project metadata.
+```shell
+forge info
+```
+
+### task:
+Run tasks defined in `Taskfile.yaml` or list available tasks.
+```shell
+forge task [name]
+# If no name is provided, lists all available tasks.
+```
+
+### test:
+Generate boilerplate test files for Go projects.
+```shell
+forge test
+```
 <br><br>
 
 # Future stuff
@@ -92,8 +125,8 @@ There is also an included Taskfile with the ability to build for different OSes.
 - bin-linux: adds to /usr/local/bin
 - build-windows
 - bin-windows: adds to C:\Windows\System32\
-- zsh-ac: creates zsh auto complete instructions
-- pwsh-ac: creates pwsh auto complete instructions
+- zsh-ac: creates zsh autocompletion instructions
+- pwsh-ac: creates PowerShell autocompletion instructions
 
 # Lastly
-If you have any feedback or ways to improve this this I am happy to connect and discuss.
+If you have any feedback or ways to improve this, I am happy to connect and discuss.
