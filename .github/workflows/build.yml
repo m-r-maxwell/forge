@@ -41,7 +41,7 @@ jobs:
           GOOS=${{ matrix.GOOS }} GOARCH=${{ matrix.GOARCH }} go build -o dist/forge-${{ matrix.GOOS }}-${{ matrix.GOARCH }} main.go
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: forge-${{ matrix.GOOS }}-${{ matrix.GOARCH }}
           path: dist/forge-${{ matrix.GOOS }}-${{ matrix.GOARCH }}
