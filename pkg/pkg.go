@@ -129,6 +129,20 @@ func Python(arg string) {
 	fmt.Println("Project created successfully!")
 }
 
+func PythonGUI(arg string) {
+	str := str.PYGUI
+
+	err := createDir(arg)
+	helpers.CheckErrors(err)
+	err = changeDir(arg)
+	helpers.CheckErrors(err)
+	err = runCommand("python3", "-m", "venv", VenvFolder)
+	helpers.CheckErrors(err)
+	err = createFileWithContent("app.py", str)
+	helpers.CheckErrors(err)
+	fmt.Println("Python GUI project created successfully!")
+}
+
 // PrintStructure prints the folder structure of a given path
 // path: the root directory to start printing from
 // prefix: the prefix to use for formatting the output
@@ -176,4 +190,34 @@ func PrintStructure(path string, prefix string) {
 			fmt.Println(newPrefix + "└── " + file.Name())
 		}
 	}
+}
+
+func Task() {
+	taskfilePath := filepath.Join(".", "Taskfile.yaml")
+	if _, err := os.Stat(taskfilePath); err == nil {
+		fmt.Println("Taskfile.yaml already exists.")
+		return
+	}
+	err := os.WriteFile(taskfilePath, []byte(str.TASK), 0644)
+	if err != nil {
+		fmt.Println("Error creating Taskfile.yaml:", err)
+		return
+	}
+	fmt.Println("Created Taskfile.yaml.")
+}
+
+func PythonClass(arg, className string) {
+	classTemplate := `class %s:
+    def __init__(self):
+        pass
+`
+	content := fmt.Sprintf(classTemplate, className)
+
+	err := createDir(arg)
+	helpers.CheckErrors(err)
+	err = changeDir(arg)
+	helpers.CheckErrors(err)
+	err = createFileWithContent(className+".py", content)
+	helpers.CheckErrors(err)
+	fmt.Println("Python class file created successfully!")
 }

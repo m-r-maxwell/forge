@@ -2,39 +2,46 @@ package forge
 
 import (
 	"fmt"
+	pkg "forge/pkg"
 	"os"
 	"os/exec"
+	"path/filepath"
 
 	"github.com/spf13/cobra"
 )
 
+var listTasks bool
+
 var taskCmd = &cobra.Command{
-	Use:   "task [name]",
-	Short: "Run tasks defined in Taskfile.yaml",
-	Long:  `Run tasks defined in Taskfile.yaml. If no task name is provided, list all available tasks.`,
-	Args:  cobra.MaximumNArgs(1),
+	Use:   "task",
+	Short: "Create a default Taskfile.yaml for your project",
+	Long:  `Creates a default Taskfile.yaml in the current directory if it does not exist.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) == 0 {
-			fmt.Println("Listing available tasks...")
+		taskfilePath := filepath.Join(".", "Taskfile.yaml")
+		if listTasks {
+			if _, err := os.Stat(taskfilePath); err != nil {
+				fmt.Println("Taskfile.yaml does not exist. Use --init to create one.")
+				return
+			}
 			out, err := exec.Command("task", "--list").Output()
 			if err != nil {
 				fmt.Println("Error listing tasks:", err)
 				return
 			}
 			fmt.Println(string(out))
-		} else {
-			taskName := args[0]
-			fmt.Printf("Running task: %s\n", taskName)
-			cmd := exec.Command("task", taskName)
-			cmd.Stdout = os.Stdout
-			cmd.Stderr = os.Stderr
-			if err := cmd.Run(); err != nil {
-				fmt.Println("Error running task:", err)
-			}
+			return
 		}
+		if _, err := os.Stat(taskfilePath); err == nil {
+			fmt.Println("Taskfile.yaml already exists.")
+			return
+		}
+		pkg.Task()
+		fmt.Println("Created Taskfile.yaml.")
+
 	},
 }
 
 func init() {
+	taskCmd.Flags().BoolVarP(&listTasks, "list", "l", false, "List tasks in Taskfile.yaml")
 	rootCmd.AddCommand(taskCmd)
 }

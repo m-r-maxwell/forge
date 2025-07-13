@@ -20,7 +20,7 @@ _______   ______   .______        _______  _______
 |__|      \______/  | _| '._____| \______| |_______|
 `
 
-var version = "0.0.6"
+var version = "0.0.7"
 
 var git bool
 var generateReadme bool
@@ -29,8 +29,8 @@ var projectName string
 var rootCmd = &cobra.Command{
 	Use:     "forge",
 	Version: version,
-	Short:   "Forge is a CLI tool for generating Go projects",
-	Long:    `Forge is a CLI tool for generating Go projects of various types. Currently supported types are blank, web, or cli.`,
+	Short:   "Forge is a CLI tool for generating Go and Python projects",
+	Long:    `Forge is a CLI tool for generating Go and Python projects of various types. Currently supported types are blank, web, or cli and python gui.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Print(asciiArt)
 		cmd.Help()

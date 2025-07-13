@@ -15,17 +15,38 @@ This project is inspired by the likes of t3 create-react-app, ng generate, etc b
 - Help: Is the inbuilt cobra help command
 - Models: This creates a models folder/file to store model information
 - Python: A blank python app.py
+- **Python-GUI:** A blank Python Tkinter GUI app
+- **Python-Class:** Generate a Python class file with a custom class name
 - Rest: A rest microservice template using http/net
 - Service: Service templates 
 - Doc: Generates a generic `README.md` file with project metadata
 - Info: Displays project metadata, such as name, type, and Git initialization status
-- Task: Lists and runs tasks defined in `Taskfile.yaml`
+- **Task:** Creates a default `Taskfile.yaml` in the current directory
 - Test: Generates boilerplate test files for Go projects
 
-## Flags
-- `-g --git`: Initialize a git repo
-- `--readme`: Generate a `README.md` file automatically after executing any Forge command
-<br><br>
+
+### task:
+Create a default `Taskfile.yaml` in the current directory.
+```shell
+forge task
+forge task -l # to list currently available tasks
+forge task --list
+```
+
+### python-gui:
+Create a Python GUI app using Tkinter.
+```shell
+forge python-gui [name]
+```
+
+### python-class:
+Create a Python class file with a custom class name.
+```shell
+forge python-class [dir] [ClassName]
+```
+# Future stuff
+## Templates
+Change the strings format of boiler plate to template to allow for variable injection
 
 # That's cool and all but why though?
 I honestly just wanted to explore cobra more thoroughly, and this can be useful for me in the future as I create random Go projects. I know it's not hard to create new projects in go, but maybe this can evolve over time as become more familiar with cobra. I've found the best way to learn something is to put it in action.

@@ -120,3 +120,36 @@ func Execute() {
 }
 `
 const PY = `print("Hello, World!")`
+
+const TASK = `version: '3'
+
+tasks:
+  build:
+    cmds:
+      - go build -o bin/app main.go
+    desc: Build the Go application
+
+  test:
+    cmds:
+      - go test ./...
+    desc: Run tests
+`
+
+const PYGUI = `"""A simple Tkinter GUI app that displays a welcome message and a button."""
+import tkinter as tk
+
+def on_click():
+    label.config(text="Hello, GUI World!")
+
+root = tk.Tk()
+root.title("My Python GUI App")
+
+label = tk.Label(root, text="Welcome!")
+label.pack(pady=10)
+
+button = tk.Button(root, text="Click Me", command=on_click)
+button.pack(pady=10)
+
+root.mainloop()
+
+`
