@@ -28,7 +28,7 @@ This project is inspired by the likes of t3 create-react-app, ng generate, etc b
 ### task:
 Create a default `Taskfile.yaml` in the current directory.
 ```shell
-forge task
+forge task # generate a task file
 forge task -l # to list currently available tasks
 forge task --list
 ```
@@ -121,10 +121,9 @@ forge info
 ```
 
 ### task:
-Run tasks defined in `Taskfile.yaml` or list available tasks.
+Generate a `Taskfile` if not present, or -l/--list to list commands
 ```shell
-forge task [name]
-# If no name is provided, lists all available tasks.
+forge task 
 ```
 
 ### test:
