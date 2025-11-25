@@ -97,8 +97,8 @@ Create a python file
 forge python [name]
 #alias p
 ```
-
-### service: 
+TODO: FIXME
+### : 
 Create a new service structure for apis
 ```shell
 forge service [name]
